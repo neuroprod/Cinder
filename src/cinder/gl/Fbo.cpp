@@ -748,7 +748,17 @@ void Fbo::setLabel( const std::string &label )
 	mLabel = label;
 	env()->objectLabel( GL_FRAMEBUFFER, mId, (GLsizei)label.size(), label.c_str() );
 }
+void Fbo::readPixels8uPBO(const Area &area, GLenum attachment) 
+{
+	// resolve first, before our own bind so that we don't force a resolve unnecessarily
+	resolveTextures();
+	ScopedFramebuffer readScp(GL_FRAMEBUFFER, mId);
 
+	Area readArea = prepareReadPixels(area, attachment);
+	
+	glReadPixels(readArea.x1, readArea.y1, readArea.getWidth(), readArea.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, 0);
+
+}
 Surface8u Fbo::readPixels8u( const Area &area, GLenum attachment ) const
 {
 	// resolve first, before our own bind so that we don't force a resolve unnecessarily

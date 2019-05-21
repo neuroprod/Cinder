@@ -170,7 +170,7 @@ class CI_API Fbo : public std::enable_shared_from_this<Fbo> {
 	const std::string&	getLabel() const { return mLabel; }
 	//! Sets the debugging label associated with the Fbo. Calls glObjectLabel() when available.
 	void				setLabel( const std::string &label );
-	
+	void		readPixels8uPBO(const Area &area, GLenum attachment = GL_COLOR_ATTACHMENT0);
 	//! Returns a copy of the pixels in \a attachment within \a area (cropped to the bounding rectangle of the attachment) as a Surface8u. \a attachment ignored on ES 2.
 	Surface8u		readPixels8u( const Area &area, GLenum attachment = GL_COLOR_ATTACHMENT0 ) const;
 	//! Returns a copy of the pixels in \a attachment within \a area (cropped to the bounding rectangle of the attachment) as a Surface32f. \a attachment ignored on ES 2.
